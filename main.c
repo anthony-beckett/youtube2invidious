@@ -20,7 +20,7 @@
 
 
 void
-convert_str(char orig_link[])
+convert_link(char orig_link[])
 {
 	char *instance = "invidious.kavin.rocks";
 	int pos;
@@ -58,7 +58,7 @@ main(int argc, char* argv[])
 	}
 	
 	snprintf(youtube_link, strlen(argv[1]) + 2, "%s", argv[1]);
-	convert_str(youtube_link);
+	convert_link(youtube_link);
 	return 0;
 	
 }
