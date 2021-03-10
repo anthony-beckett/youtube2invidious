@@ -50,11 +50,15 @@ convert_str(char orig_link[])
 int
 main(int argc, char* argv[])
 {
-	if (argc > 1 ) {
-		char youtube_link[strlen(argv[1]) + 2];
-		snprintf(youtube_link, strlen(argv[1]) + 2, "%s", argv[1]);
-		convert_str(youtube_link);
-		return 0;
+	char youtube_link[strlen(argv[1]) + 2];
+	
+	if (argc < 2 ) {
+		puts("Not enough arguments");
+		return 1;
 	}
-	return 1;
+	
+	snprintf(youtube_link, strlen(argv[1]) + 2, "%s", argv[1]);
+	convert_str(youtube_link);
+	return 0;
+	
 }
