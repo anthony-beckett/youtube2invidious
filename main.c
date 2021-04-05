@@ -16,15 +16,43 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#define BUFFER 100
+
+void
+error_check(int count, char* arg_1)
+{
+	int err_num = 0;
+
+	if (count < 2 ) {
+		fprintf(stderr, "ERROR: Not enough arguments\n");
+		err_num++;
+	}
+
+	if (count > 2) {
+		fprintf(stderr, "ERROR: Too many arguments\n");
+		err_num++;
+	}
+
+	if (strlen(arg_1) > BUFFER) {
+		fprintf(stderr, "ERROR: Link exceeds %d characters\n", BUFFER);
+		err_num++;
+	}
+
+	if (err_num)
+		exit(1);
+}
 
 
 void
-convert_link(char orig_link[])
+convert_link(char* final_link, char orig_link[])
 {
-	char *instance = "invidious.kavin.rocks";
-	int pos;
-	int flag = 0;
+	char* instance     = "invidious.kavin.rocks";
+	int   flag         = 0;
+	int   pos;
+	char  data[BUFFER];
 
 	for (pos = 0; flag < 2; pos++) {
 		switch (orig_link[pos]) {
@@ -40,25 +68,30 @@ convert_link(char orig_link[])
 				break;
 		}
 	}
-	printf("https://%s/", instance);
-	for (NULL; orig_link[pos]; pos++)
-		printf("%c", orig_link[pos]);
-	puts("");
+	
+	for (int j = 0; orig_link[pos]; pos++) {
+		data[j] = orig_link[pos];
+		j++;
+	}
+
+	snprintf(final_link, BUFFER, "https://%s/%s", instance, data);
 }
 
 
 int
 main(int argc, char* argv[])
 {
-	char youtube_link[strlen(argv[1]) + 2];
+	char youtube_link[BUFFER];
+	char ret_link[BUFFER];
+	char invidious_link[BUFFER];
+
+	error_check(argc, argv[1]);	
+	snprintf(youtube_link, BUFFER, "%s", argv[1]);
 	
-	if (argc < 2 ) {
-		puts("Not enough arguments");
-		return 1;
-	}
-	
-	snprintf(youtube_link, strlen(argv[1]) + 2, "%s", argv[1]);
-	convert_link(youtube_link);
+	convert_link(invidious_link, youtube_link);
+
+	printf("%s\n", invidious_link);
+
 	return 0;
 	
 }
