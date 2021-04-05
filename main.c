@@ -15,11 +15,20 @@
 */
 
 
+
+/*                             TODO
+ * 1. Add a check to make sure input is actually a youtube_link.
+ * 2. Add command line parsing.
+ * 3. Add the ability to choose the invidious instance.
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define BUFFER 100
+
 
 void
 error_check(int count, char* arg_1)
