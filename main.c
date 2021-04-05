@@ -75,7 +75,7 @@ convert_link(char* final_link, char orig_link[], char* instance)
 				break;
 		}
 	}
-	
+
 	for (int j = 0; orig_link[pos]; pos++) {
 		data[j] = orig_link[pos];
 		j++;
@@ -96,11 +96,10 @@ main(int argc, char* argv[])
 		return 1;
 
 	snprintf(youtube_link, BUFFER, "%s", argv[1]);
-	
+
 	convert_link(invidious_link, youtube_link, instance);
 
 	printf("%s\n", invidious_link);
 
 	return 0;
-	
 }
