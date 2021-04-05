@@ -30,7 +30,7 @@
 #define BUFFER 100
 
 
-void
+int
 error_check(int count, char* arg_1)
 {
 	int err_num = 0;
@@ -50,15 +50,13 @@ error_check(int count, char* arg_1)
 		err_num++;
 	}
 
-	if (err_num)
-		exit(1);
+	return err_num;
 }
 
 
 void
-convert_link(char* final_link, char orig_link[])
+convert_link(char* final_link, char orig_link[], char* instance)
 {
-	char* instance     = "invidious.kavin.rocks";
 	int   flag         = 0;
 	int   pos;
 	char  data[BUFFER];
@@ -90,13 +88,16 @@ convert_link(char* final_link, char orig_link[])
 int
 main(int argc, char* argv[])
 {
-	char youtube_link[BUFFER];
-	char invidious_link[BUFFER];
+	char* instance     = "invidious.kavin.rocks";
+	char  youtube_link[BUFFER];
+	char  invidious_link[BUFFER];
 
-	error_check(argc, argv[1]);
+	if (error_check(argc, argv[1]))
+		return 1;
+
 	snprintf(youtube_link, BUFFER, "%s", argv[1]);
 	
-	convert_link(invidious_link, youtube_link);
+	convert_link(invidious_link, youtube_link, instance);
 
 	printf("%s\n", invidious_link);
 
