@@ -82,10 +82,9 @@ int
 main(int argc, char* argv[])
 {
 	char youtube_link[BUFFER];
-	char ret_link[BUFFER];
 	char invidious_link[BUFFER];
 
-	error_check(argc, argv[1]);	
+	error_check(argc, argv[1]);
 	snprintf(youtube_link, BUFFER, "%s", argv[1]);
 	
 	convert_link(invidious_link, youtube_link);
